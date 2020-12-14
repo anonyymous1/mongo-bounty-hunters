@@ -1,1 +1,67 @@
 Please replace this text with ~50 lines of terminal history.
+
+//To find all the info on all bounties.
+db.bounties.find()
+
+//To find bounties whos client is Time Bureau
+db.bounties.find({client:'Time Bureau'})
+
+// Find bounties who have been captured
+db.bounties.find({captured:true})
+
+//Find your own insert
+db.bounties.find({hunters:'Rome'})
+
+//Find everyone but only display one field.
+db.bounties.find({},{"name":1})
+
+//Removing Starbuck
+db.bounties.remove({name:'Starbuck'})
+
+//Removed Duplicate Person
+db.bounties.remove({_id:ObjectId("5fd7a30d3b59f614180de140")})
+
+//Change Sara Lance name to White Canary
+db.bounties.update({name:'Sara Lance'},{$set:{name:'White Canary'}})
+
+//Update Rocket's ship to The Milano 2
+db.bounties.update({name:'Rocket'},{$set:{ship:'The Milano 2'}})
+
+//Finding bounty hire than 100000
+db.bounties.find({reward:{$gt: 100000}})
+
+//Find bounties lower then 1000
+db.bounties.find({reward:{$lt: 1000}})
+
+//Find bounties less than or equal to 1000
+db.bounties.find({reward:{$lte: 1000}})
+
+//Find bounty with hunter Nebula
+db.bounties.find({hunters:'Nebula'})
+
+//Find Waverider or Serenity
+db.bounties.find({$or:[{ship:'Waverider'},{ship:'Serenity'}]})
+
+//Find the bounty who is not captured AND has whose client is Ayesha High Priestess of the Sovereign
+db.bounties.find({captured: false, client:'Ayesha High Priestess of the Sovereign'})
+
+//Update all bounties by 333333
+db.bounties.updateMany({}, {$inc:{reward: 333333}})
+
+//Increase all bounties by 2
+db.bounties.updateMany({}, {$mul:{reward: 2}})
+
+//Adding Bobba Fett as Hunter for Malcolm Reynolds
+db.bounties.update({name:'Malcolm Reynolds'},{$push:{hunters:'Bobba Fett'}})
+
+//Adding Bobba Fett as Hunter for ship Waverider
+db.bounties.update({ship:'Waverider'},{$push:{hunters:'Bobba Fett'}})
+
+//Removing Dengar as Hunter
+db.bounties.update({hunters: 'Dengar'}, {$pull:{hunters: 'Dengar'}})
+
+//Using Upset to set new key if you dont have one already
+db.bounties.update({name:'Han Solo'},{$set:{lastseen:'yesterday'}},{upsert:true})
+
+//Update last seen for those that are not Han Solo
+db.bounties.updateMany({name:{$ne: 'Han Solo'}},{$set:{lastseen:'Last Week'}},{upsert:true})
